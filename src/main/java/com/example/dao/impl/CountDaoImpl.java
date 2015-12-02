@@ -1,17 +1,19 @@
 package com.example.dao.impl;
 
-import com.example.bean.IncidentHourlyCount;
-import com.example.bean.IncidentMonthCount;
-import com.example.bean.IncidentTypeCount;
-import com.example.dao.CountDaoIfc;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
+import com.example.bean.IncidentHourlyCount;
+import com.example.bean.IncidentLocationCount;
+import com.example.bean.IncidentMonthCount;
+import com.example.bean.IncidentTypeCount;
+import com.example.dao.CountDaoIfc;
 
 @Repository
 public class CountDaoImpl implements CountDaoIfc {
@@ -55,6 +57,21 @@ public class CountDaoImpl implements CountDaoIfc {
         return resultList;
     }
 
+    
+    @Override
+	public List<IncidentLocationCount> getIncientCountsByLocation() {
+    	
+    	List<IncidentLocationCount> resultList =  null;
+    	
+    	try {
+    		resultList =  jdbc.query("SELECT * FROM locationcrimecount ", locationCountMapper);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+     
+    	return resultList;
+
+	}
     private static BeanPropertyRowMapper<IncidentTypeCount> typeCountRowMapper = new BeanPropertyRowMapper<IncidentTypeCount>() {
 
         public IncidentTypeCount mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -91,4 +108,17 @@ public class CountDaoImpl implements CountDaoIfc {
             return incident;
         }
     };
+    
+
+	private static BeanPropertyRowMapper<IncidentLocationCount> locationCountMapper = new BeanPropertyRowMapper<IncidentLocationCount>(){
+		public IncidentLocationCount mapRow(ResultSet resultSet, int i) throws SQLException {
+            IncidentLocationCount incident = new IncidentLocationCount();
+            incident.setRowId(resultSet.getInt("rowId"));
+            incident.setLatitude(resultSet.getLong("latitude"));
+            incident.setLongitude(resultSet.getLong("longitude"));
+            incident.setCount(resultSet.getInt("count"));
+            System.out.println(incident);
+            return incident;
+        }
+	};
 }

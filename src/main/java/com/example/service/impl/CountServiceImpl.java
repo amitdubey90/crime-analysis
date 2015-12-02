@@ -1,14 +1,16 @@
 package com.example.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.bean.IncidentHourlyCount;
+import com.example.bean.IncidentLocationCount;
 import com.example.bean.IncidentMonthCount;
 import com.example.bean.IncidentTypeCount;
 import com.example.dao.CountDaoIfc;
 import com.example.service.CountServiceIfc;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CountServiceImpl implements CountServiceIfc {
@@ -30,4 +32,10 @@ public class CountServiceImpl implements CountServiceIfc {
     public List<IncidentHourlyCount> getIncidentCountsByHour() {
         return countDao.getIncidentCountsByHour();
     }
+    
+	@Override
+	public List<IncidentLocationCount> getIncidentCountByLocation() {
+		return countDao.getIncientCountsByLocation();
+	}
+
 }
