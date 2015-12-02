@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.bean.IncidentHourlyCount;
 import com.example.bean.IncidentMonthCount;
 import com.example.bean.IncidentTypeCount;
 
@@ -9,4 +10,6 @@ public interface CountServiceIfc {
     List<IncidentTypeCount> getIncidentCountsByType();
 
     List<IncidentMonthCount> getIncidentCountsByMonth();
+
+    List<IncidentHourlyCount> getIncidentCountsByHour();
 }

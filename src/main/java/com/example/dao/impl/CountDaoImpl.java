@@ -1,5 +1,6 @@
 package com.example.dao.impl;
 
+import com.example.bean.IncidentHourlyCount;
 import com.example.bean.IncidentMonthCount;
 import com.example.bean.IncidentTypeCount;
 import com.example.dao.CountDaoIfc;
@@ -22,7 +23,7 @@ public class CountDaoImpl implements CountDaoIfc {
     public List<IncidentTypeCount> getIncidentCountsByType() {
         List<IncidentTypeCount> resultList = null;
         try {
-            resultList = jdbc.query("select * from incident_type_count", typeCountRowMapper);
+            resultList = jdbc.query("select * from crimetypecount group by content", typeCountRowMapper);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,15 +43,26 @@ public class CountDaoImpl implements CountDaoIfc {
         return resultList;
     }
 
+    @Override
+    public List<IncidentHourlyCount> getIncidentCountsByHour() {
+        List<IncidentHourlyCount> resultList = null;
+        try {
+            resultList = jdbc.query("select * from crimeHourlyCount group by hour", hourCountRowMapper);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultList;
+    }
+
     private static BeanPropertyRowMapper<IncidentTypeCount> typeCountRowMapper = new BeanPropertyRowMapper<IncidentTypeCount>() {
 
         public IncidentTypeCount mapRow(ResultSet resultSet, int i) throws SQLException {
             IncidentTypeCount incident = new IncidentTypeCount();
-            incident.setRowId(resultSet.getInt("rowId"));
-            incident.setType(resultSet.getString("type"));
-            incident.setCount(resultSet.getInt("incidentCount"));
+            incident.setRowId(resultSet.getInt("id"));
+            incident.setType(resultSet.getString("content"));
+            incident.setCount(resultSet.getInt("count"));
 
-            System.out.println(incident);
             return incident;
         }
     };
@@ -64,7 +76,18 @@ public class CountDaoImpl implements CountDaoIfc {
             incident.setYear(resultSet.getInt("year"));
             incident.setCount(resultSet.getInt("incidentCount"));
 
-            System.out.println(incident);
+            return incident;
+        }
+    };
+
+    private static BeanPropertyRowMapper<IncidentHourlyCount> hourCountRowMapper = new BeanPropertyRowMapper<IncidentHourlyCount>() {
+
+        public IncidentHourlyCount mapRow(ResultSet resultSet, int i) throws SQLException {
+            IncidentHourlyCount incident = new IncidentHourlyCount();
+            incident.setId(resultSet.getInt("id"));
+            incident.setHour(resultSet.getInt("hour"));
+            incident.setCount(resultSet.getInt("count"));
+
             return incident;
         }
     };
