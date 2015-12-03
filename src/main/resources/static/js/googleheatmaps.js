@@ -1,7 +1,5 @@
 var map, heatmap;
 arrt=[];
-crimecountarr=[];
-crimenamearr=[];
 app = angular.module("myapp", [])
 
 app.controller("FirstController", function($scope,$http) {
@@ -10,7 +8,6 @@ app.controller("FirstController", function($scope,$http) {
 
    $http.get("http://demo5924853.mockable.io/coordinates")
        .success(function(data) {
-
          $scope.data = data;
          var arr= [];
          //console.log($scope.data.coordinates[0].latitude)
@@ -23,19 +20,19 @@ app.controller("FirstController", function($scope,$http) {
            arr.push(temp);
           //  $scope.arr=arr
            }
-           console.log("data retriecedl")
+           console.log("data retrieved")
            arrt = arr;
            console.log(arrt)
-           initMap();
+           initMap(latitude,longitude);
        });
 });
 
 
-function initMap() {
+function initMap(latitude, longitude) {
     console.log("initMap")
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
-        center: {lat: 37.775, lng: -122.434},
+        center: {lat: latitude, lng: longitude},
         mapTypeId: google.maps.MapTypeId.SATELLITE
     });
     heatmap = new google.maps.visualization.HeatmapLayer({
@@ -77,57 +74,3 @@ function changeOpacity() {
     heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
 }
 
-function getPoints(){
-
-
-}
-// Heatmap data: 500 Points
-function getPoints1() {
-    return [
-        new google.maps.LatLng(37.782551, -122.445368),
-        new google.maps.LatLng(37.782745, -122.444586),
-        new google.maps.LatLng(37.782842, -122.443688),
-        new google.maps.LatLng(37.782919, -122.442815),
-        new google.maps.LatLng(37.782992, -122.442112),
-        new google.maps.LatLng(37.783100, -122.441461),
-        new google.maps.LatLng(37.783206, -122.440829)
-    ];
-}
-
-//********************************* graph1 ********************************************************
-
-app.controller("SecondController", function($scope,$http) {
-    $http.get("http://demo0899463.mockable.io/crimecount").success(function(data) {
-            $scope.data = data;
-            //console.log($scope.data.coordinates[0].latitude)
-            for (var i = 0; i < $scope.data.crime.length; i++) {
-                var crimetype=$scope.data.crime[i].type
-                var crimecount=$scope.data.crime[i].count
-                //console.log(latitude)
-                console.log(crimetype+" "+crimecount)
-                crimecountarr.push(crimecount)
-                crimenamearr.push(crimetype)
-                //  $scope.arr=arr
-            }
-            console.log("data retrieved "+crimecountarr)
-            console.log("data retrieved "+crimenamearr)
-
-            var barData = {
-                labels: crimenamearr,
-                datasets: [
-                    {
-                        label: '2010 crime #',
-                        fillColor: '#382763',
-                        data: crimecountarr
-                    }
-                ]
-            };
-            context = document.getElementById('graph1').getContext('2d');
-            clientsChart = new Chart(context).Bar(barData);
-        }
-
-    );
-});
-
-
-//******************** graph 2 ***********************************************************
