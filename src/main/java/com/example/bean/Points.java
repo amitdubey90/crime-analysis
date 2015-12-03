@@ -4,6 +4,8 @@ public class Points {
     private Double latitude;
     private Double longitude;
 
+    public Points(){}
+
     public Points(Double latitude, Double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;

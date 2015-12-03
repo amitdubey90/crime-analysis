@@ -6,16 +6,43 @@ import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.example.bean.Points;
 import com.example.dao.LocationDaoIfc;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class LocationDaoImpl implements LocationDaoIfc {
 
+    @Autowired
+    JdbcTemplate jdbc;
+
     @Override
     public List<Points> getPoints(String typeOfCrime) {
+        List<Points> resultList = null;
+        try {
+            resultList = jdbc.query("select latitude, longitude from incidentLocations", pointsRowMapper);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultList;
+    }
+
+    private static BeanPropertyRowMapper<Points> pointsRowMapper = new BeanPropertyRowMapper<Points>() {
+
+        public Points mapRow(java.sql.ResultSet resultSet, int i) throws SQLException {
+            Points p = new Points();
+            p.setLatitude(resultSet.getDouble("latitude"));
+            p.setLongitude(resultSet.getDouble("longitude"));
+            return p;
+        }
+    };
+    public List<Points> getPointsCassandra(String typeOfCrime) {
         System.out.println("Getting points from location Dao");
         List pointLists = new ArrayList<Points>();
         Cluster cluster = null;

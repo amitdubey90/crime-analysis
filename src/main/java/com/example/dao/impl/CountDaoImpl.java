@@ -37,7 +37,7 @@ public class CountDaoImpl implements CountDaoIfc {
     public List<IncidentMonthCount> getIncidentCountsByMonth() {
         List<IncidentMonthCount> resultList = null;
         try {
-            resultList = jdbc.query("SELECT SUM(incidentcount), month FROM incident_monthly_count GROUP BY month", monthCountRowMapper);
+            resultList = jdbc.query("SELECT SUM(count) as count, month FROM monthcrimecount GROUP BY month", monthCountRowMapperWithoutYear);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,14 +84,13 @@ public class CountDaoImpl implements CountDaoIfc {
         }
     };
 
-    private static BeanPropertyRowMapper<IncidentMonthCount> monthCountRowMapper = new BeanPropertyRowMapper<IncidentMonthCount>() {
+    private static BeanPropertyRowMapper<IncidentMonthCount> monthCountRowMapperWithoutYear = new BeanPropertyRowMapper<IncidentMonthCount>() {
 
         public IncidentMonthCount mapRow(ResultSet resultSet, int i) throws SQLException {
             IncidentMonthCount incident = new IncidentMonthCount();
-            incident.setRowId(resultSet.getInt("rowId"));
+//            incident.setRowId(resultSet.getInt("id"));
             incident.setMonth(resultSet.getInt("month"));
-            incident.setYear(resultSet.getInt("year"));
-            incident.setCount(resultSet.getInt("incidentCount"));
+            incident.setCount(resultSet.getInt("count"));
 
             return incident;
         }
