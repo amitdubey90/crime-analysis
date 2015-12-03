@@ -37,7 +37,7 @@ public class CountDaoImpl implements CountDaoIfc {
     public List<IncidentMonthCount> getIncidentCountsByMonth() {
         List<IncidentMonthCount> resultList = null;
         try {
-            resultList = jdbc.query("SELECT SUM(count) as count, month FROM monthcrimecount GROUP BY month", monthCountRowMapperWithoutYear);
+            resultList = jdbc.query("SELECT SUM(count) as count, month FROM crimemonthlycount GROUP BY month", monthCountRowMapperWithoutYear);
         } catch (Exception e) {
             e.printStackTrace();
         }
