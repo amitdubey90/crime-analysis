@@ -24,7 +24,7 @@ app.controller("CrimeCountController", function($scope,$http) {
        datasets: [
         {
          label: '2010 crime #',
-         fillColor: '#382763',
+         fillColor: '#545A5C',
          data: crimecountarr
         }
        ]

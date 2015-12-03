@@ -37,6 +37,13 @@
       height: 100%;
     }
     </style>
+  <style>
+    .jumbotron {
+      background-image: url(../static/img/jumbotron.jpg);
+      background-size: cover;
+      height: 40%;
+    }
+  </style>
 </head>
 
 <body ng-app="myapp">
@@ -62,13 +69,13 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="barchart.html"><img src="../static/img/logo.png" height=30 width=41></a>
+        <a class="navbar-brand" href="dashboard.html"><img src="../static/img/logo.png" height=30 width=41></a>
 
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li class="active">
-            <a href="#">
+            <a href="dashboard.html">
               <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a>
           </li>
           <li>
@@ -97,17 +104,17 @@
     </div>
   </nav>
 
-  <header class="jumbotron">
+  <header class="jumbotron" >
     <!-- Main component for a primary marketing message or call to action -->
-    <div class="container">
+    <div class="container" style="height: 20%;">
       <div class="row row-header">
         <div class="col-xs-12 col-sm-8">
           <h1>Crime Analysis</h1>
-          <p style="padding:40px;"></p>
+          <p style="padding:2px;"></p>
           <p>Crime prevention awareness brings you benefits</p>
         </div>
         <div class="col-xs-12 col-sm-2">
-          <p style="padding:20px;"></p>
+          <p style="padding:3px;"></p>
           <img src="../static/img/logo.png" class="img-responsive">
         </div>
       </div>
@@ -126,19 +133,18 @@
           <ul class="list-unstyled">
             <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
-            <li><a href="#">Menu</a></li>
             <li><a href="#">Contact</a></li>
           </ul>
         </div>
         <div class="col-sm-5 col-xs-6">
           <h5>Our Address</h5>
           <address>
-            121, Clear Water Bay Road
-            <br> Clear Water Bay, Kowloon
-            <br> HONG KONG
+            San Jose State University
+            <br> San Jose
+            <br> USA
             <br><i class="fa fa-phone"></i>: +852 1234 5678
             <br><i class="fa fa-fax"></i>: +852 8765 4321
-            <br><i class="fa fa-envelope"></i>: <a href="mailto:confusion@food.net">confusion@food.net</a>
+            <br><i class="fa fa-envelope"></i>: <a href="mailto:confusion@food.net">crimeanalysis@sjsu.edu</a>
 
           </address>
         </div>
@@ -154,7 +160,7 @@
         </div>
         <div class="col-xs-12">
           <p style="padding:10px;"></p>
-          <p align=center>Â© Copyright 2015 Ristorante Con Fusion</p>
+          <p align=center>© Copyright 2015 Ristorante Con Fusion</p>
         </div>
       </div>
     </div>
