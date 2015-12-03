@@ -25,7 +25,7 @@ public class CountDaoImpl implements CountDaoIfc {
     public List<IncidentTypeCount> getIncidentCountsByType() {
         List<IncidentTypeCount> resultList = null;
         try {
-            resultList = jdbc.query("select * from crimetypecount group by content", typeCountRowMapper);
+            resultList = jdbc.query("select * from crimetypecount group by type", typeCountRowMapper);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,7 +49,7 @@ public class CountDaoImpl implements CountDaoIfc {
     public List<IncidentHourlyCount> getIncidentCountsByHour() {
         List<IncidentHourlyCount> resultList = null;
         try {
-            resultList = jdbc.query("select * from crimeHourlyCount group by hour", hourCountRowMapper);
+            resultList = jdbc.query("select * from crimehourlycount group by hour", hourCountRowMapper);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,7 +77,7 @@ public class CountDaoImpl implements CountDaoIfc {
         public IncidentTypeCount mapRow(ResultSet resultSet, int i) throws SQLException {
             IncidentTypeCount incident = new IncidentTypeCount();
             incident.setRowId(resultSet.getInt("id"));
-            incident.setType(resultSet.getString("content"));
+            incident.setType(resultSet.getString("type"));
             incident.setCount(resultSet.getInt("count"));
 
             return incident;
