@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.util.List;
 
+import com.example.bean.wrapper.IncidentMonthCountWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,8 +27,8 @@ public class CountServiceController {
     }
 
     @RequestMapping("/byMonth")
-    public List<IncidentMonthCount> getIncidentCountsByMonth() {
-        return countService.getIncidentCountsByMonth();
+    public IncidentMonthCountWrapper getIncidentCountsByMonth() {
+        return new IncidentMonthCountWrapper(countService.getIncidentCountsByMonth());
     }
 
     @RequestMapping("/byHour")
