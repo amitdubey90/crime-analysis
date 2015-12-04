@@ -21,11 +21,24 @@ public class LocationDaoImpl implements LocationDaoIfc {
     @Autowired
     JdbcTemplate jdbc;
 
+
+    public List<Points> getPoints2(String typeOfCrime) {
+        List<Points> resultList = null;
+        try {
+            resultList = jdbc.query("select latitude, longitude, count from crimelocationcount", pointsRowMapper);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultList;
+    }
+
     @Override
     public List<Points> getPoints(String typeOfCrime) {
         List<Points> resultList = null;
+        System.out.println("from new points");
         try {
-            resultList = jdbc.query("select latitude, longitude from incidentLocations", pointsRowMapper);
+            resultList = jdbc.query("select latitude, longitude from newcrimelocationcount", pointsRowMapper);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,9 +52,11 @@ public class LocationDaoImpl implements LocationDaoIfc {
             Points p = new Points();
             p.setLatitude(resultSet.getDouble("latitude"));
             p.setLongitude(resultSet.getDouble("longitude"));
+            //p.setWeight(resultSet.getInt("count"));
             return p;
         }
     };
+
     public List<Points> getPointsCassandra(String typeOfCrime) {
         System.out.println("Getting points from location Dao");
         List pointLists = new ArrayList<Points>();
@@ -56,7 +71,7 @@ public class LocationDaoImpl implements LocationDaoIfc {
             ResultSet results = session.execute("SELECT latitude, longitude FROM crimedataset limit 1000");
 
             for (Row row : results) {
-                p = new Points(row.getDouble(0), row.getDouble(1));
+                //p = new Points(row.getDouble(0), row.getDouble(1));
                 pointLists.add(p);
             }
         } catch (Exception e) {

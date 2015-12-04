@@ -3,12 +3,14 @@ package com.example.bean;
 public class Points {
     private Double latitude;
     private Double longitude;
+    private int weight;
 
     public Points(){}
 
-    public Points(Double latitude, Double longitude) {
+    public Points(Double latitude, Double longitude, int weight) {
         this.latitude = latitude;
         this.longitude = longitude;
+        this.weight = weight;
     }
 
     public Double getLatitude() {
@@ -25,5 +27,13 @@ public class Points {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 }

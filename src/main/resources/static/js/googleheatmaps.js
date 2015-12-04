@@ -6,17 +6,17 @@ app.controller("FirstController", function($scope,$http) {
    $scope.helloTo = {};
    $scope.helloTo.title = "AngularJS";
 
-   $http.get("http://demo5924853.mockable.io/coordinates")
+   $http.get("http://localhost:8080/location/getPoints")
        .success(function(data) {
          $scope.data = data;
          var arr= [];
          //console.log($scope.data.coordinates[0].latitude)
-         for (var i = 0; i < $scope.data.coordinates.length; i++) {
-           var latitude=$scope.data.coordinates[i].latitude
-           var longitude=$scope.data.coordinates[i].longitude
+         for (var i = 0; i < $scope.data.length; i++) {
+           var latitude=$scope.data[i].latitude
+           var longitude=$scope.data[i].longitude
            //console.log(latitude)
-           console.log(latitude+" "+longitude)
-           var temp=new google.maps.LatLng(latitude,longitude)
+           //console.log(latitude+" "+longitude)
+           var temp= {location : new google.maps.LatLng(latitude,longitude), weight: $scope.data[i].weight}
            arr.push(temp);
           //  $scope.arr=arr
            }
@@ -30,15 +30,17 @@ app.controller("FirstController", function($scope,$http) {
 
 function initMap(latitude, longitude) {
     console.log("initMap")
+    console.log(arrt[0]);
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: {lat: latitude, lng: longitude},
-        mapTypeId: google.maps.MapTypeId.SATELLITE
+        zoom: 5,
+        center: {lat: 37.78, lng: -122.41},
+        mapTypeId: google.maps.MapTypeId.MAP
     });
     heatmap = new google.maps.visualization.HeatmapLayer({
 //data: getPoints(),
         data: arrt,
-        map: map
+        map: map,
+        radius:50       
     });
 }
 
