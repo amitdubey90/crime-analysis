@@ -15,5 +15,7 @@ public interface CountServiceIfc {
     List<IncidentHourlyCount> getIncidentCountsByHour();
     
     List<IncidentLocationCount> getIncidentCountByLocation();
+
+    List<IncidentMonthCount> getMonthlyCountForDrill();
 }
 

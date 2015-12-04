@@ -40,4 +40,9 @@ public class CountServiceController {
     public IncidentLocationCountWrapper getIncidentCountsByLocation(){
     	return new  IncidentLocationCountWrapper(countService.getIncidentCountByLocation());
     }
+
+    @RequestMapping("/byMonthForDrill")
+    public List<IncidentMonthCount> getMonthlyCountForDrill() {
+        return countService.getMonthlyCountForDrill();
+    }
 }

@@ -38,4 +38,9 @@ public class CountServiceImpl implements CountServiceIfc {
 		return countDao.getIncientCountsByLocation();
 	}
 
+    @Override
+    public List<IncidentMonthCount> getMonthlyCountForDrill() {
+        return countDao.getMonthlyCountForDrill();
+    }
+
 }

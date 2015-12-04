@@ -64,7 +64,7 @@ public class CountDaoImpl implements CountDaoIfc {
     	List<IncidentLocationCount> resultList =  null;
     	
     	try {
-    		resultList =  jdbc.query("SELECT * FROM locationcrimecount ", locationCountMapper);
+    		resultList =  jdbc.query("SELECT * FROM newcrimelocationcount ", locationCountMapper);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -72,6 +72,20 @@ public class CountDaoImpl implements CountDaoIfc {
     	return resultList;
 
 	}
+
+    @Override
+    public List<IncidentMonthCount> getMonthlyCountForDrill() {
+        List<IncidentMonthCount> resultList = null;
+        try {
+            resultList = jdbc.query("select month, count from crimeyearmonthtype where year = 2012",
+                    monthCountRowMapperWithoutYear);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultList;
+    }
+
     private static BeanPropertyRowMapper<IncidentTypeCount> typeCountRowMapper = new BeanPropertyRowMapper<IncidentTypeCount>() {
 
         public IncidentTypeCount mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -115,7 +129,7 @@ public class CountDaoImpl implements CountDaoIfc {
             incident.setRowId(resultSet.getInt("rowId"));
             incident.setLatitude(resultSet.getLong("latitude"));
             incident.setLongitude(resultSet.getLong("longitude"));
-            incident.setCount(resultSet.getInt("count"));
+//            incident.setCount(resultSet.getInt("count"));
             System.out.println(incident);
             return incident;
         }

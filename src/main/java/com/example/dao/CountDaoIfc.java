@@ -15,4 +15,6 @@ public interface CountDaoIfc {
     List<IncidentHourlyCount> getIncidentCountsByHour();
     
     List<IncidentLocationCount> getIncientCountsByLocation();
+
+    List<IncidentMonthCount> getMonthlyCountForDrill();
 }

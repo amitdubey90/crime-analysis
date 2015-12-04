@@ -16,7 +16,7 @@ app.controller("FirstController", function($scope,$http) {
            var longitude=$scope.data[i].longitude
            //console.log(latitude)
            //console.log(latitude+" "+longitude)
-           var temp= {location : new google.maps.LatLng(latitude,longitude), weight: $scope.data[i].weight}
+           var temp= {location : new google.maps.LatLng(latitude,longitude)}
            arr.push(temp);
           //  $scope.arr=arr
            }
